@@ -1,0 +1,9 @@
+node_modules/
+dist/
+coverage/
+.env
+*.local
+.claude/
+.codex/
+AGENTS.md
+.mcp.json
