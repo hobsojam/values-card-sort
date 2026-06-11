@@ -1,4 +1,6 @@
-export default function ReflectPhase({ topValues, onRestart }) {
+import PropTypes from 'prop-types';
+
+function ReflectPhase({ topValues, onRestart }) {
   return (
     <div className="phase phase--reflect">
       <header className="phase__header">
@@ -25,3 +27,14 @@ export default function ReflectPhase({ topValues, onRestart }) {
     </div>
   );
 }
+
+ReflectPhase.propTypes = {
+  topValues: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+  })).isRequired,
+  onRestart: PropTypes.func.isRequired,
+};
+
+export default ReflectPhase;

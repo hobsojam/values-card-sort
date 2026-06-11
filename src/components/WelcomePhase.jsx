@@ -1,10 +1,12 @@
+import PropTypes from 'prop-types';
+
 const STEPS = [
   { n: 1, label: 'Sort',    desc: 'Into three columns by importance' },
   { n: 2, label: 'Narrow',  desc: 'Choose the five that matter most' },
   { n: 3, label: 'Reflect', desc: 'Review and keep your core values' },
 ];
 
-export default function WelcomePhase({ onStart, count = 51 }) {
+function WelcomePhase({ onStart, count = 51 }) {
   return (
     <div className="phase phase--welcome">
       <div className="welcome">
@@ -39,3 +41,10 @@ export default function WelcomePhase({ onStart, count = 51 }) {
     </div>
   );
 }
+
+WelcomePhase.propTypes = {
+  onStart: PropTypes.func.isRequired,
+  count: PropTypes.number,
+};
+
+export default WelcomePhase;

@@ -1,13 +1,19 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { DndContext, DragOverlay, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
-import { CSS } from '@dnd-kit/utilities';
 
 const COLUMNS = [
   { id: 'not-important',  label: 'Not Important',  color: '#998269', text: '#5a4a39' },
   { id: 'important',      label: 'Important',       color: '#8db176', text: '#3e6230' },
   { id: 'very-important', label: 'Very Important',  color: '#3e6230', text: '#2f4a26' },
 ];
+
+const valuePropType = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+});
 
 function Card({ value, small, faded }) {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({ id: value.id });
@@ -24,6 +30,12 @@ function Card({ value, small, faded }) {
     </div>
   );
 }
+
+Card.propTypes = {
+  value: valuePropType.isRequired,
+  small: PropTypes.bool,
+  faded: PropTypes.bool,
+};
 
 function CategoryColumn({ col, cards, assignments }) {
   const { setNodeRef, isOver } = useDroppable({ id: col.id });
@@ -46,6 +58,17 @@ function CategoryColumn({ col, cards, assignments }) {
   );
 }
 
+CategoryColumn.propTypes = {
+  col: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+  }).isRequired,
+  cards: PropTypes.arrayOf(valuePropType).isRequired,
+  assignments: PropTypes.objectOf(PropTypes.string).isRequired,
+};
+
 function UnsortedPool({ cards, assignments }) {
   const { setNodeRef, isOver } = useDroppable({ id: 'unsorted' });
   const unsorted = cards.filter(v => assignments[v.id] === 'unsorted');
@@ -62,7 +85,12 @@ function UnsortedPool({ cards, assignments }) {
   );
 }
 
-export default function SortPhase({ values, assignments, onAssign, onComplete }) {
+UnsortedPool.propTypes = {
+  cards: PropTypes.arrayOf(valuePropType).isRequired,
+  assignments: PropTypes.objectOf(PropTypes.string).isRequired,
+};
+
+function SortPhase({ values, assignments, onAssign, onComplete }) {
   const [activeValue, setActiveValue] = useState(null);
 
   const sensors = useSensors(
@@ -126,3 +154,12 @@ export default function SortPhase({ values, assignments, onAssign, onComplete })
     </div>
   );
 }
+
+SortPhase.propTypes = {
+  values: PropTypes.arrayOf(valuePropType).isRequired,
+  assignments: PropTypes.objectOf(PropTypes.string).isRequired,
+  onAssign: PropTypes.func.isRequired,
+  onComplete: PropTypes.func.isRequired,
+};
+
+export default SortPhase;
