@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { values } from './data/values.js';
+import WelcomePhase from './components/WelcomePhase.jsx';
 import SortPhase from './components/SortPhase.jsx';
 import NarrowPhase from './components/NarrowPhase.jsx';
 import ReflectPhase from './components/ReflectPhase.jsx';
 
 export default function App() {
-  const [phase, setPhase] = useState('sort');
+  const [phase, setPhase] = useState('welcome');
   const [assignments, setAssignments] = useState(() =>
     Object.fromEntries(values.map(v => [v.id, 'unsorted']))
   );
@@ -33,11 +34,14 @@ export default function App() {
   function handleRestart() {
     setAssignments(Object.fromEntries(values.map(v => [v.id, 'unsorted'])));
     setTopValues([]);
-    setPhase('sort');
+    setPhase('welcome');
   }
 
   const veryImportantCards = values.filter(v => assignments[v.id] === 'very-important');
 
+  if (phase === 'welcome') {
+    return <WelcomePhase onStart={() => setPhase('sort')} count={values.length} />;
+  }
   if (phase === 'sort') {
     return <SortPhase values={values} assignments={assignments} onAssign={handleAssign} onComplete={handleSortComplete} />;
   }
