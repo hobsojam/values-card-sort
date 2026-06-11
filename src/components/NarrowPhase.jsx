@@ -7,11 +7,11 @@ function NarrowPhase({ cards, onComplete }) {
   const [selected, setSelected] = useState([]);
 
   function toggle(id) {
-    setSelected(prev =>
-      prev.includes(id)
-        ? prev.filter(x => x !== id)
-        : prev.length < MAX ? [...prev, id] : prev
-    );
+    setSelected(prev => {
+      if (prev.includes(id)) return prev.filter(x => x !== id);
+      if (prev.length < MAX) return [...prev, id];
+      return prev;
+    });
   }
 
   const remaining = MAX - selected.length;
