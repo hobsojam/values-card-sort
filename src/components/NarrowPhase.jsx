@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const MAX = 5;
 
-export default function NarrowPhase({ cards, onComplete }) {
+function NarrowPhase({ cards, onComplete }) {
   const [selected, setSelected] = useState([]);
 
   function toggle(id) {
@@ -59,3 +60,14 @@ export default function NarrowPhase({ cards, onComplete }) {
     </div>
   );
 }
+
+NarrowPhase.propTypes = {
+  cards: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+  })).isRequired,
+  onComplete: PropTypes.func.isRequired,
+};
+
+export default NarrowPhase;
