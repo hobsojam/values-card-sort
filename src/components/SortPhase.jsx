@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { DndContext, DragOverlay, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { useDraggable, useDroppable } from '@dnd-kit/core';
+import { DndContext, DragOverlay, PointerSensor, useDraggable, useDroppable, useSensor, useSensors } from '@dnd-kit/core';
 
 const COLUMNS = [
   { id: 'not-important',  label: 'Not Important',  color: '#998269', text: '#5a4a39' },
