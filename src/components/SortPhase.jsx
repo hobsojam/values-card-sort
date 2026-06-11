@@ -4,9 +4,9 @@ import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 
 const COLUMNS = [
-  { id: 'not-important',  label: 'Not Important',  color: '#757575' },
-  { id: 'important',      label: 'Important',       color: '#1565c0' },
-  { id: 'very-important', label: 'Very Important',  color: '#e65100' },
+  { id: 'not-important',  label: 'Not Important',  color: '#998269', text: '#5a4a39' },
+  { id: 'important',      label: 'Important',       color: '#8db176', text: '#3e6230' },
+  { id: 'very-important', label: 'Very Important',  color: '#3e6230', text: '#2f4a26' },
 ];
 
 function Card({ value, small, faded }) {
@@ -33,7 +33,7 @@ function CategoryColumn({ col, cards, assignments }) {
     <div
       ref={setNodeRef}
       className={`column${isOver ? ' column--over' : ''}`}
-      style={{ '--col-color': col.color }}
+      style={{ '--col-color': col.color, '--col-text': col.text }}
     >
       <div className="column__header">
         <span className="column__label">{col.label}</span>
