@@ -23,5 +23,8 @@ jobs:
       - name: Install dependencies
         run: npm install  # not npm ci — lock file is generated on Windows
 
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
       - name: Build
         run: npm run build
