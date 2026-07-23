@@ -21,7 +21,7 @@ jobs:
           node-version: '26'
 
       - name: Install dependencies
-        run: npm install  # not npm ci — lock file is generated on Windows
+        run: npm install  --ignore-scripts # not npm ci — lock file is generated on Windows
 
       - name: Audit dependencies
         run: npm audit --audit-level=high
